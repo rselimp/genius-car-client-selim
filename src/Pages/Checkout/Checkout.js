@@ -8,10 +8,10 @@ const Checkout = () => {
     const {user} = useContext(AuthContext);
 
     const handlePlaceOrder =event =>{
-        event.preventDeafult();
+        event.preventDefault();
         const form = event.target;
         const name = `${form.firstName.value} ${form.lastName.value}` ;
-        const email = user?.email || 'unregistered';
+        const email = user.email;
         const phone = form.phone.value;
         const message = form.message.value;
 
@@ -28,10 +28,11 @@ const Checkout = () => {
         // if(phone.length>10){
         //     alert('Phone number should be 10 characters or longer')
         // }
-        fetch('http://localhost:5000/orders', {
+        fetch('https://genius-car-server-selim.vercel.app/orders', {
             method: 'POST',
             headers:{
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius-token')}`
             },
             body: JSON.stringify(order)
         })
@@ -56,7 +57,7 @@ const Checkout = () => {
             <input name='firstName' type="text" placeholder="First Name" className="input input-bordered w-full" />
             <input name='lastName' type="text" placeholder="Last Name" className="input input-bordered w-full" />
             <input name='phone' type="text" placeholder="Your Phone" className="input input-bordered w-full" required />
-            <input name='email' type="text" placeholder="Your Email" defaultValue={user?.email} className="input input-bordered w-full" readOnly />
+            <input name='email' type="text" placeholder="Your Email" className="input input-bordered w-full" />
             </div>
             <textarea name='message' className="textarea input-bordered w-full h-24" placeholder="Bio" required></textarea>
             <input className='btn' type="submit" value="Place your order" />

@@ -4,7 +4,9 @@ import Main from '../../Layout/Main';
 import Checkout from '../../Pages/Checkout/Checkout';
 import Home from '../../Pages/Home/Home';
 import Login from '../../Pages/Login/Login';
+import Orders from '../../Pages/Orders/Orders';
 import Register from '../../Pages/Register/Register';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
     const router = createBrowserRouter([
         {
@@ -25,10 +27,13 @@ import Register from '../../Pages/Register/Register';
             },
             {
               path:'/checkout/:id',
-              element:<Checkout></Checkout>,
-              loader: ({params})=> fetch(`http://localhost:5000/services/${params.id}`)
+              element:<PrivateRoute><Checkout></Checkout></PrivateRoute>,
+              loader: ({params})=> fetch(`https://genius-car-server-selim.vercel.app/services/${params.id}`)
               
-              
+            },
+            {
+              path:'/orders',
+              element:<PrivateRoute><Orders></Orders></PrivateRoute>
             }
           ]
          

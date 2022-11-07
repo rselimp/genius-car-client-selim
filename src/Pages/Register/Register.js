@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg';
@@ -5,21 +6,23 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
   const {createUser} = useContext(AuthContext)
-    const handleSignUp =event =>{
+    const handleSignUp = event =>{
         event.preventDefault();
         const form = event.target;
         const email= form.email.value;
-        const password =form.password.value;
+        const password = form.password.value;
+       console.log(email,password)
 
-        createUser(email,password)
-        .then(result=>{
-          const user= result.user;
-          console.log(user); 
-          event.target.reset()
+      createUser (email, password)
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+        event.target.reset()
+      })
+      .catch(error =>console.error(error));
 
-        })
-        .catch(error =>console.error(error))
-    }
+      }
+
     return (
         <div className="w-full my-20 hero">
   <div className="grid flex-col gap-20 hero-content md:grid-cols-2 lg:flex-row">
@@ -46,9 +49,7 @@ const Register = () => {
             <span className="label-text">Password</span>
           </label>
           <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-          <label className="label">
-            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-          </label>
+          
         </div>
         <div className="mt-6 form-control">
           <input className='btn btn-primary' type="submit" value="Sign Up" />

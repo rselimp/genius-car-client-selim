@@ -1,6 +1,7 @@
 
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { setAuthToken } from '../../api/auths';
 import img from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
@@ -17,6 +18,7 @@ const Register = () => {
       .then(result => {
         const user = result.user;
         console.log(user);
+        setAuthToken(user);
         event.target.reset()
       })
       .catch(error =>console.error(error));
